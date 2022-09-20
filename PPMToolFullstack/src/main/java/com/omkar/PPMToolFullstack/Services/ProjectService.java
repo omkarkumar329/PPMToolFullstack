@@ -1,0 +1,9 @@
+package com.omkar.PPMToolFullstack.Services;
+
+import com.omkar.PPMToolFullstack.Domain.Project;
+
+public interface ProjectService {
+
+	Project saveOrUpdateProject(Project project);
+
+}

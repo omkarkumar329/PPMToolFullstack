@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+
+//@Table(uniqueConstraints={@UniqueConstraint(columnNames={"projectIdentifier"})})
 @Entity
 public class Project {
 
@@ -16,7 +18,11 @@ public class Project {
     private Long id;
     @NotBlank(message = "Project name is required")
     private String projectName;
-    
+    /* I have conducted tests on the two cases and found out that @Column(unique=true)
+     *  actually works(unique constraint enforced) but only if the table does not already exist in the database. 
+     *  Using @Column(unique=true) afterwards (i.e when the table had been generated previously) 
+     *  does not update the table with the unique constraint. However @UniqueConstraint works for me all the
+     *   time whether the table already exists or not. */
     @NotBlank(message ="Project Identifier is required")
     @Size(min=4, max=5, message = "Please use 4 to 5 characters")
     @Column(updatable = false, unique = true)

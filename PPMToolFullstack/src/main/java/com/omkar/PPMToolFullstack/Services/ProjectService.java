@@ -6,4 +6,12 @@ public interface ProjectService {
 
 	Project saveOrUpdateProject(Project project);
 
+	Project findProjectByprojectIdentifier(String projectIdentifier);
+
+	Project findProjectByprojectId(Long projectId);
+
+	Iterable<Project> findAllProjects();
+
+	void deleteProjectByIdentifier(String projectIdentifier);
+
 }

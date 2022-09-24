@@ -13,6 +13,7 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
     private ProjectRepository projectRepository;
 
+	@Override
     public Project saveOrUpdateProject(Project project){
 
         //Logic
@@ -23,7 +24,57 @@ public class ProjectServiceImpl implements ProjectService {
             throw new ProjectIdException("Project ID '"+project.getProjectIdentifier().toUpperCase()+"' already exists");
         }
 
-       // return projectRepository.save(project);
     }
 
-}
+	
+
+	@Override
+	public Project findProjectByprojectIdentifier(String projectIdentifier) {
+		// TODO Auto-generated method stub
+		 Project project = projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
+      System.out.println(project);
+	        if(project == null){
+	            throw new ProjectIdException("Project Identifier '"+projectIdentifier+"' does not exist");
+
+	        }
+	        return project;
+	    }
+
+
+
+	@Override
+	public Project findProjectByprojectId(Long projectId) {
+		 Project project = projectRepository.findById(projectId).get();
+
+	        if(project == null){
+	            throw new ProjectIdException("Project ID '"+projectId+"' does not exist");
+
+	        }
+	        return project;
+	}
+
+
+
+	@Override
+	public Iterable<Project> findAllProjects() {
+		
+		return projectRepository.findAll();
+	}
+
+
+
+	@Override
+	public void deleteProjectByIdentifier(String projectIdentifier) {
+		// TODO Auto-generated method stub
+		Project project =projectRepository.findByProjectIdentifier(projectIdentifier.toUpperCase());
+		if(project == null){
+            throw new ProjectIdException("Project ID '"+projectIdentifier+"' does not exist");
+
+        }
+		projectRepository.delete(project);
+		
+	}
+		
+	}
+
+
